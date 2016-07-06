@@ -1,7 +1,7 @@
 /*
  * CSE 351 HW1 (Data Lab - Pointers)
  *
- * <Please put your name and userid here>
+ * Shakeel Mohamed
  *
  * pointer.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.

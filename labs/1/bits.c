@@ -1,7 +1,7 @@
 /* 
  * CSE 351 HW1 (Data Lab )
  * 
- * <Please put your name and userid here>
+ * Shakeel Mohamed
  * 
  * bits.c - Source file with your solutions to the Lab.
  *          This is the file you will hand in to your instructor.
@@ -120,7 +120,13 @@ NOTES:
  *   Rating: 1
  */
 int bitAnd(int x, int y) {
-  return 2;
+  /** Invert both values then | them to isolate the &
+   * values as 0s. Invert that result to get the & value.
+   */
+  int xPrime = ~x;
+  int yPrime = ~y;
+  int orOfPrimes = xPrime | yPrime;
+  return ~orOfPrimes;
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -130,7 +136,17 @@ int bitAnd(int x, int y) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+  /**
+   * TODO: explain this :)
+   * ~(~x & ~y) & ~(x & y)
+   */
+  int and = x & y;
+  int xPrime = ~x;
+  int yPrime = ~y;
+  int andOfPrimes = xPrime & yPrime;
+  int andOfPrimesPrime = ~andOfPrimes;
+  int andPrime = ~and;
+  return andOfPrimesPrime & andPrime;
 }
 /* 
  * thirdBits - return word with every third bit (starting from the LSB) set to 1
@@ -140,7 +156,22 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int thirdBits(void) {
-  return 2;
+  /**
+   * goal: 01001001 00100100 10010010 01001001 (1227133513 in decimal)
+   * Start with 73, the first byte of data 01001001,
+   * shift it over 9 bits to "clear" it to the next
+   * trio of 3 bits (every 3 bits is a 1). Then,
+   * apply the | operator to fill in the next byte
+   * of data. Repeat 3 times
+   */
+  int start = 73; // The first byte of data: 01001001
+  int a1 = start << 9;
+  int a2 = a1 | start;
+  int a3 = a2 << 9;
+  int a4 = a3 | start;
+  int a5 = a4 << 9;
+  int a6 = a5 | start;
+  return a6;
 }
 // Rating: 2
 /* 
@@ -153,7 +184,15 @@ int thirdBits(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+  // failing cases:
+  // fitsBits(2147483647[0x7fffffff],31[0x1f]) = 01111111 11111111 11111111 11111111
+  // fitsBits(2147483647[0x7fffffff],32[0x20])
+  // TODO: the negative values are tricky
+  int withoutNBits = x >> n;
+  int inFormation = withoutNBits << n;
+  printf("%d %d %d\n", x, n, inFormation);
+  return !inFormation;
+  // return 2;
 }
 /* 
  * sign - return 1 if positive, 0 if zero, and -1 if negative
@@ -164,7 +203,20 @@ int fitsBits(int x, int n) {
  *  Rating: 2
  */
 int sign(int x) {
-  return 2;
+  /**
+   * Isolate 2 values, the signed bit and bool representation of x.
+   * From there, determine the polarity then clean up for the 0 case.
+   */
+  // TODO: reduce to 10 ops, 12 currently
+  
+  int hasLength = !!x;
+  int signedBit = x >> 31 & 1;
+  int negatedSB = ~signedBit + 1;
+  int negativeOne = -1;
+  int polarity = (negatedSB & negativeOne) + (~negatedSB & 1);
+  int xorVal = hasLength ^ polarity;
+  int xorvalInc = xorVal + 1;
+  return xorvalInc & polarity;
 }
 /* 
  * getByte - Extract byte n from word x
@@ -175,7 +227,13 @@ int sign(int x) {
  *   Rating: 2
  */
 int getByte(int x, int n) {
-  return 2;
+  // Compute how many bits left/right need to be shifted from the number of bytes
+  // (n*8). Right shift x by n*8 bits to move the byte we want to the LSB position.
+  // Use & with the 0xFF mask to isolate those values (zero out the non-LSB bits).
+  int numBits = n << 3; // multiply by 8
+  int shifted = x >> numBits;
+  int masked = shifted & 0xFF;
+  return masked;
 }
 // Rating: 3
 /* 
@@ -187,6 +245,14 @@ int getByte(int x, int n) {
  *   Rating: 3 
  */
 int logicalShift(int x, int n) {
+  // TODO: lookup the definition of this
+  // 10000111 01100101 01000011 00100001
+  // 00001000 01110110 01010100 00110010
+  // int signedBit = (x >> 31) << 31;
+  // int magnitude = (x << 1) >> 1;
+  // int result = magnitude >> n;
+  // result = signedBit | result; // restore the signed bit...
+
   return 2;
 }
 /* 
@@ -220,6 +286,13 @@ int bang(int x) {
  *   Rating: 3
  */
 int conditional(int x, int y, int z) {
+  // TODO: this should work... but there's an infinite loop
+  // int xAsBool = !!x;
+  // int negated = ~xAsBool + 1;
+  // int result = (negated & y) + (~negated & z);
+  
+  // printf("%d %d %d %d\n", x, y, z, result);
+  // return result;
   return 2;
 }
 // Extra Credit: Rating: 4
@@ -232,5 +305,9 @@ int conditional(int x, int y, int z) {
  *   Rating: 4
  */
 int isPower2(int x) {
+  // There can only 0 bits on, or 1 if it's not the signed bit
+  int signedBit = x >> 31 & 1;
+  // x<0 ? 0 : 1 // 0 it's negative, no hope
+  
   return 2;
 }
