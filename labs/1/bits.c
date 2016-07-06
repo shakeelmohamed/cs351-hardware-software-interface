@@ -190,7 +190,7 @@ int fitsBits(int x, int n) {
   // TODO: the negative values are tricky
   int withoutNBits = x >> n;
   int inFormation = withoutNBits << n;
-  printf("%d %d %d\n", x, n, inFormation);
+  // printf("%d %d %d\n", x, n, inFormation);
   return !inFormation;
   // return 2;
 }

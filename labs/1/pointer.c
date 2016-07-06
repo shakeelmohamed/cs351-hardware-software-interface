@@ -84,9 +84,11 @@ int intSize() {
   int intArray[10];
   int * intPtr1;
   int * intPtr2;
-  // TODO: Write code to compute size of an integer.
-
-  return 2;
+  
+  // Take the difference of memory addresses of adjacent int block of memory
+  intPtr1 = &intArray[0];
+  intPtr2 = &intArray[1];
+  return (int)intPtr2 - (int)intPtr1;
 }
 
 /*
@@ -96,9 +98,11 @@ int doubleSize() {
   double doubArray[10];
   double * doubPtr1;
   double * doubPtr2;
-  // TODO: Write code to compute size of a double.
-
-  return 2;
+  
+  // Take the difference of memory addresses of adjacent int block of memory
+  doubPtr1 = &doubArray[0];
+  doubPtr2 = &doubArray[1];
+  return (int)doubPtr2 - (int)doubPtr1;
 }
 
 /*
@@ -108,9 +112,11 @@ int pointerSize() {
   double * ptrArray[10];
   double ** ptrPtr1;
   double ** ptrPtr2;
-  // TODO: Write code to compute size of a pointer.
 
-  return 2;
+  // Take the difference of memory addresses of adjacent int block of memory
+  ptrPtr1 = &ptrArray[0];
+  ptrPtr2 = &ptrArray[1];
+  return (int)ptrPtr2 - (int)ptrPtr1;
 }
 
 /*
@@ -124,6 +130,16 @@ int changeValue() {
   // TODO: Write code to change value of intArray[5] to 351 using only
   //       intPtr1 and the + operator.
 
+
+  int val = 0;
+  int ** hack = &intPtr1;
+  printf("%d\n", (int)*(hack) + 1);
+
+  intPtr1 = &intArray[5];
+  *intPtr1 = val;
+  printf("%d\n", (int)&intArray);
+  // printf("%d %d %d\n", intArray[5], *intPtr1, val);
+  // target: 0000 0001 0101 1111
   return intArray[5];
 }
 
