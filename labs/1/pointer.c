@@ -127,19 +127,11 @@ int changeValue() {
   int intArray[10];
   int * intPtr1 = intArray;
   int * intPtr2;
-  // TODO: Write code to change value of intArray[5] to 351 using only
+  
+  // Write code to change value of intArray[5] to 351 using only
   //       intPtr1 and the + operator.
-
-
-  int val = 0;
-  int ** hack = &intPtr1;
-  printf("%d\n", (int)*(hack) + 1);
-
-  intPtr1 = &intArray[5];
-  *intPtr1 = val;
-  printf("%d\n", (int)&intArray);
-  // printf("%d %d %d\n", intArray[5], *intPtr1, val);
-  // target: 0000 0001 0101 1111
+  intPtr2 = intPtr1 + 5;
+  *intPtr2 = 351;
   return intArray[5];
 }
 
