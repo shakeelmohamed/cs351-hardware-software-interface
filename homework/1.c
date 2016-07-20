@@ -82,7 +82,9 @@ void testOne()
  *     return i == ((int)l);
  * }
  *
- * A:
+ */
+
+/**
  * - long int as a type is redundant, long is already 8 bytes "int" has no effect
  * - casting from long -> int can cause data loss
  */

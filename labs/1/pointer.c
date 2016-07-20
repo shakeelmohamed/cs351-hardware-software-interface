@@ -162,5 +162,13 @@ int withinArray(int * intArray, int size, int * ptr) {
  */
 int invert(int x, int p, int n) {
   // TODO
+  // int clearRight = (x >> p) << p;
+  // n -= 1;
+  // int clearBoth = (clearRight << n) >> n;
+  // int flipped = ~clearBoth;
+  // // TODO: clear signed bit
+  
+  // int result = x ^ flipped;
+  // printf("%d\n", result);
   return 2;
 }

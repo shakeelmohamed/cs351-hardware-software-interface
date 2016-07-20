@@ -248,12 +248,13 @@ int logicalShift(int x, int n) {
   // TODO: lookup the definition of this
   // 10000111 01100101 01000011 00100001
   // 00001000 01110110 01010100 00110010
-  // int signedBit = (x >> 31) << 31;
-  // int magnitude = (x << 1) >> 1;
-  // int result = magnitude >> n;
-  // result = signedBit | result; // restore the signed bit...
-
-  return 2;
+  int signedBit = (x >> 31) << 31;
+  int magnitude = (x << 1) >> 1;
+  int result = magnitude >> n;
+  result = signedBit | result; // restore the signed bit...
+  result = result & -1; // fix all the bogus values on the left n bits
+  return result;
+  // return 2;
 }
 /* 
  * addOK - Determine if can compute x+y without overflow
